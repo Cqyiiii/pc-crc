@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "Please cite the PC-CRC numerical reproduction release and the revisions you used."
-title: "PC-CRC: code for reproducing the arXiv results"
+title: "Solve-Then-Certify: code for reproducing the arXiv results"
 authors:
   - name: PC-CRC contributors
 version: "1.0.0"

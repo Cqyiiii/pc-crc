@@ -1,4 +1,8 @@
-# PC-CRC · arXiv numerical reproduction package
+# Solve-Then-Certify · numerical reproduction
+
+*Solve-Then-Certify: Decoupling Hard-Budget RLVR from Post-Closure Conformal Risk Control in Reasoning LLMs*
+
+**Solve-Then-Certify** studies how a mathematical reasoning model can use a fixed token budget to solve a problem and then decide whether to submit its answer. The first stage, **ExtBF-GRPO**, uses reinforcement learning with verifiable rewards and external budget forcing to train the solver. The second stage, **Post-Closure Conformal Risk Control (PC-CRC)**, calibrates a threshold on held-out problem families and applies it to the completed answer's uncertainty score. The risk of interest is the marginal probability of submitting a wrong answer. The experiments use Qwen3.5-4B and Qwen3-8B on DAPO and Omni-MATH.
 
 Rebuild the six manuscript tables, four main figures and the training appendix on CPU. The inputs contain released family-level observations, training-step counts and systems measurements. Calibration is fit on CAL. The package includes the 8B failures at the original DAPO thresholds, unissued LTT certificates and the exploratory small-panel results.
 
@@ -44,4 +48,4 @@ Optional model conversion uses `python tools/convert_adapter.py {4B,8B} ORIGINAL
 
 ## Pinned downloads
 
-- [Numerical dataset · 8f0988432a75](https://huggingface.co/datasets/Cqyiii/pc-crc-observations/tree/8f0988432a75f9313c56c4a35cd881d00955e06b)
+- [Numerical dataset · 4f082fbba125](https://huggingface.co/datasets/Cqyiii/pc-crc-observations/tree/4f082fbba12518d17d54106df68eddcbb5fe7090)
