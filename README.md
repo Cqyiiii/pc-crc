@@ -51,3 +51,5 @@ Optional model conversion uses `python tools/convert_adapter.py {4B,8B} ORIGINAL
 - [Numerical dataset · 9574462fe94d](https://huggingface.co/datasets/Cqyiii/pc-crc-observations/tree/9574462fe94d610698aa2dfd463655f7f87f2798)
 - [PC-CRC-G0-4B-seed41 · 6fc398533044](https://huggingface.co/Cqyiii/PC-CRC-G0-4B-seed41/tree/6fc398533044a2a00c86941c133299ae28de9a08)
 - [PC-CRC-G0-4B-seed73 · dbb387c47cfb](https://huggingface.co/Cqyiii/PC-CRC-G0-4B-seed73/tree/dbb387c47cfb20d54e45e1e91402509452bb3812)
+- [PC-CRC-G0-8B-seed41 · f0516ea7f5ee](https://huggingface.co/Cqyiii/PC-CRC-G0-8B-seed41/tree/f0516ea7f5ee6a383e5e1340d43b1aab328c4517)
+- [PC-CRC-G0-8B-seed73 · 3aa8d653693d](https://huggingface.co/Cqyiii/PC-CRC-G0-8B-seed73/tree/3aa8d653693d7b0926d775da54067fddd139672a)

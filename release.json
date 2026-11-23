@@ -12,6 +12,14 @@
     {
       "id": "Cqyiii/PC-CRC-G0-4B-seed73",
       "revision": "dbb387c47cfb20d54e45e1e91402509452bb3812"
+    },
+    {
+      "id": "Cqyiii/PC-CRC-G0-8B-seed41",
+      "revision": "f0516ea7f5ee6a383e5e1340d43b1aab328c4517"
+    },
+    {
+      "id": "Cqyiii/PC-CRC-G0-8B-seed73",
+      "revision": "3aa8d653693d7b0926d775da54067fddd139672a"
     }
   ],
   "evaluation_rows": 42000,
