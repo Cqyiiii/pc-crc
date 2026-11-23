@@ -1,8 +1,8 @@
-# Decoupling Solving from Abstention · PC-CRC reproduction
+# Tail-CRC · single-rollout conformal risk control for hard-budget reasoning
 
 *Decoupling Solving from Abstention: Single-Rollout Conformal Risk Control for Hard-Budget Reasoning* by Qianyi Chen.
 
-The paper studies how a mathematical reasoning model can use a fixed token budget to solve a problem and then decide whether to submit its answer. The first stage, **ExtBF-GRPO**, uses reinforcement learning with verifiable rewards and external budget forcing to train the solver. The second stage, **Post-Closure Conformal Risk Control (PC-CRC)**, calibrates a threshold on held-out problem families and applies it to the completed answer's uncertainty score. The risk of interest is the marginal probability of submitting a wrong answer. The experiments use Qwen3.5-4B and Qwen3-8B on DAPO and Omni-MATH.
+**Solve-then-Calibrate** separates learning to solve under a hard token budget from deciding whether to submit a completed answer. The solver is trained with ExtBF-GRPO and binary verifiable rewards. Once its weights are frozen, **Tail-CRC** uses a single completed rollout: it averages the largest ⌈L/10⌉ token surprisals in the L-token post-closure answer (`tail10_nll`) and fits a threshold on held-out calibration families. A valid answer is submitted when its score falls below the threshold. The target is the marginal probability of submitting a wrong answer. The release also reproduces the historical box-score and white-box comparisons.
 
 Rebuild the six numerical evidence tables and generate four core plots and the training appendix plot on CPU. The evidence tables aggregate multiple experiments and have their own numbering, as described in Appendix B.5 of the manuscript. The inputs contain released family-level observations, training-step counts and systems measurements. Calibration is fit on CAL. The package includes the 8B failures at the original DAPO thresholds, unissued LTT certificates and the exploratory small-panel results.
 
@@ -48,8 +48,8 @@ Optional model conversion uses `python tools/convert_adapter.py {4B,8B} ORIGINAL
 
 ## Pinned downloads
 
-- [Numerical dataset · 9574462fe94d](https://huggingface.co/datasets/Cqyiii/pc-crc-observations/tree/9574462fe94d610698aa2dfd463655f7f87f2798)
-- [PC-CRC-G0-4B-seed41 · 6fc398533044](https://huggingface.co/Cqyiii/PC-CRC-G0-4B-seed41/tree/6fc398533044a2a00c86941c133299ae28de9a08)
-- [PC-CRC-G0-4B-seed73 · dbb387c47cfb](https://huggingface.co/Cqyiii/PC-CRC-G0-4B-seed73/tree/dbb387c47cfb20d54e45e1e91402509452bb3812)
-- [PC-CRC-G0-8B-seed41 · f0516ea7f5ee](https://huggingface.co/Cqyiii/PC-CRC-G0-8B-seed41/tree/f0516ea7f5ee6a383e5e1340d43b1aab328c4517)
-- [PC-CRC-G0-8B-seed73 · 3aa8d653693d](https://huggingface.co/Cqyiii/PC-CRC-G0-8B-seed73/tree/3aa8d653693d7b0926d775da54067fddd139672a)
+- [Numerical dataset · 5c123785c2de](https://huggingface.co/datasets/Cqyiii/pc-crc-observations/tree/5c123785c2de38db193656779f4bfecad2d92582)
+- [Tail-CRC · G0 solver · 4B-seed41 · e8792cd4ecd5](https://huggingface.co/Cqyiii/PC-CRC-G0-4B-seed41/tree/e8792cd4ecd58f53e6a4c97f8a4b8381ee60238c)
+- [Tail-CRC · G0 solver · 4B-seed73 · 7c3303b38aa7](https://huggingface.co/Cqyiii/PC-CRC-G0-4B-seed73/tree/7c3303b38aa79c208a0656386b5c6edee892a7b2)
+- [Tail-CRC · G0 solver · 8B-seed41 · bc0e6714684e](https://huggingface.co/Cqyiii/PC-CRC-G0-8B-seed41/tree/bc0e6714684e06b03102b0701dfee2710ef5b8f5)
+- [Tail-CRC · G0 solver · 8B-seed73 · f8aa0372fa3f](https://huggingface.co/Cqyiii/PC-CRC-G0-8B-seed73/tree/f8aa0372fa3fa5b9a1fe5fec5dfb9c0149c2201d)

@@ -1,4 +1,4 @@
-"""Convert the published PC-CRC original LoRA factors to Hugging Face PEFT layout."""
+"""Convert the published Tail-CRC original LoRA factors to Hugging Face PEFT layout."""
 import argparse
 import json
 from pathlib import Path

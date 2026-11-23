@@ -1,9 +1,9 @@
 cff-version: 1.2.0
-message: "Please cite the PC-CRC numerical reproduction release and the revisions you used."
-title: "Decoupling Solving from Abstention: PC-CRC reproduction code"
+message: "Please cite the Tail-CRC numerical reproduction release and the revisions you used."
+title: "Tail-CRC: reproduction code for Solve-then-Calibrate"
 authors:
   - family-names: Chen
     given-names: Qianyi
-version: "1.0.0"
+version: "1.0.1"
 license: Apache-2.0
 repository-code: "https://github.com/Cqyiiii/pc-crc"

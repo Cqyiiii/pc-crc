@@ -1,4 +1,4 @@
-"""Fetch just the eight public PC-CRC data files, verifying size and SHA-256."""
+"""Fetch just the eight public Tail-CRC data files, verifying size and SHA-256."""
 import hashlib
 import json
 import os
