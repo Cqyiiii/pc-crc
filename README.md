@@ -41,3 +41,7 @@ Installation needs access to a package index or a local wheelhouse. With matchin
 [Evaluation records on Hugging Face](https://huggingface.co/datasets/Cqyiii/pc-crc-observations) · [Data schema and provenance](DATA_CARD.md). See `release.json` for the data revision and model inventory. Code is licensed under Apache-2.0. The derived numerical data are released under CC BY 4.0.
 
 Optional model conversion uses `python tools/convert_adapter.py {4B,8B} ORIGINAL_DIR NEW_PEFT_DIR` with PyTorch and safetensors. The numerical replay does not import them.
+
+## Pinned downloads
+
+- [Numerical dataset · 8f0988432a75](https://huggingface.co/datasets/Cqyiii/pc-crc-observations/tree/8f0988432a75f9313c56c4a35cd881d00955e06b)
