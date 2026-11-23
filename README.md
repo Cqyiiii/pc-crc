@@ -16,9 +16,11 @@ In **Solve-then-Calibrate**, a model learns to finish a mathematical answer with
 
 ## Results
 
-**What does calibration trade off?** On 300 held-out Omni-MATH families, Tail-CRC reduced both wrong and correct submissions. The comparison below uses Qwen3-8B, averages training seeds 41 and 73 within each family, and sets a 6.5% marginal wrong-submission target using a separate Omni-MATH calibration split.
+On 300 held-out Omni-MATH families, Tail-CRC reduced both wrong and correct submissions. The comparison below uses Qwen3-8B, averages training seeds 41 and 73 within each family, and sets a 6.5% marginal wrong-submission target using a separate Omni-MATH calibration split.
 
-![Omni-MATH submission rates before and after Tail-CRC. At 4K, correct submissions fell from 29.3% to 16.7% and wrong submissions from 30.3% to 5.8%. At 8K, correct submissions fell from 38.8% to 18.0% and wrong submissions from 41.8% to 6.5%.](assets/omni-calibration.png)
+![Omni-MATH submission rates before and after Tail-CRC. At 4K, correct submissions fell from 29.3% to 16.7% and wrong submissions from 30.3% to 5.8%. At 8K, correct submissions fell from 38.8% to 18.0% and wrong submissions from 41.8% to 6.5%.](assets/omni-calibration.svg)
+
+[PDF](assets/omni-calibration.pdf) · [SVG](assets/omni-calibration.svg)
 
 The replay also lets you investigate:
 
@@ -47,7 +49,7 @@ The first run downloads eight checksum-pinned files. Later runs can use the veri
 
 Install pinned packages from a local wheelhouse with `python -m pip install --no-index --find-links WHEELHOUSE -r requirements.txt`. For an offline replay, prepopulate `data/` with the eight files in the [data manifest](data-files.json).
 
-Without Make, run `python fetch_data.py`, `python reproduce.py` and `python verify.py` in order. Use `make reproduce OUT=other-output` for a separate results directory. To regenerate the comparison shown above from the default outputs, run `python tools/plot_readme.py`.
+Without Make, run `python fetch_data.py`, `python reproduce.py` and `python verify.py` in order. Use `make reproduce OUT=other-output` for a separate results directory. To regenerate the README chart as SVG and PDF, install the plotting dependencies with `python -m pip install seaborn==0.13.2 pandas==2.3.3`, then run `python tools/plot_readme.py` after the replay.
 
 </details>
 
