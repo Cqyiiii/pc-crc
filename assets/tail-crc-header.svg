@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="154" viewBox="0 0 880 154" role="img" aria-labelledby="name desc">
+  <title id="name">Tail-CRC</title>
+  <desc id="desc">Solve-then-Calibrate. A schematic answer span highlights the two tokens with the highest surprisal out of twenty.</desc>
+  <rect width="880" height="154" rx="14" fill="#122d38"/>
+  <text x="37" y="91" fill="#f6f7ef" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="bold" letter-spacing="-3">Tail-CRC</text>
+  <text x="42" y="124" fill="#a9dcd1" font-family="system-ui, sans-serif" font-size="23">Solve-then-Calibrate</text>
+  <g transform="translate(466 0)">
+    <path d="M0 124h376" stroke="#587780" stroke-width="1.5"/>
+    <g fill="#70aba9">
+      <rect x="0" y="107" width="11" height="12" rx="2"/>
+      <rect x="19" y="90" width="11" height="29" rx="2"/>
+      <rect x="38" y="98" width="11" height="21" rx="2"/>
+      <rect x="57" y="82" width="11" height="37" rx="2"/>
+      <rect x="76" y="101" width="11" height="18" rx="2"/>
+      <rect x="95" y="93" width="11" height="26" rx="2"/>
+      <rect x="114" y="55" width="11" height="64" rx="2" fill="#ffcf88"/>
+      <rect x="133" y="100" width="11" height="19" rx="2"/>
+      <rect x="152" y="87" width="11" height="32" rx="2"/>
+      <rect x="171" y="107" width="11" height="12" rx="2"/>
+      <rect x="190" y="78" width="11" height="41" rx="2"/>
+      <rect x="209" y="96" width="11" height="23" rx="2"/>
+      <rect x="228" y="89" width="11" height="30" rx="2"/>
+      <rect x="247" y="103" width="11" height="16" rx="2"/>
+      <rect x="266" y="91" width="11" height="28" rx="2"/>
+      <rect x="285" y="38" width="11" height="81" rx="2" fill="#ffcf88"/>
+      <rect x="304" y="85" width="11" height="34" rx="2"/>
+      <rect x="323" y="98" width="11" height="21" rx="2"/>
+      <rect x="342" y="93" width="11" height="26" rx="2"/>
+      <rect x="361" y="105" width="11" height="14" rx="2"/>
+    </g>
+  </g>
+</svg>

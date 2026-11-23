@@ -1,25 +1,105 @@
-# Tail-CRC
+<a name="tail-crc"></a>
 
-**Decoupling Solving from Abstention: Single-Rollout Conformal Risk Control for Hard-Budget LLM Reasoning**
+![Tail-CRC · Solve-then-Calibrate](assets/tail-crc-header.svg)
+
+# Decoupling Solving from Abstention: Single-Rollout Conformal Risk Control for Hard-Budget LLM Reasoning
 
 Qianyi Chen and Bo Li
 
-[![Manuscript PDF](https://img.shields.io/badge/manuscript-PDF-943d2b)](Tail-CRC.pdf)
-![arXiv pending](https://img.shields.io/badge/arXiv-pending-lightgrey)
-[![Hugging Face observations](https://img.shields.io/badge/Hugging%20Face-observations-e6ad27)](https://huggingface.co/datasets/Cqyiii/tail-crc-observations)
-[![License Apache 2.0](https://img.shields.io/badge/code-Apache%202.0-31746b)](LICENSE)
+[![Read the paper (PDF)](https://img.shields.io/badge/Paper-PDF-903f36?style=flat-square)](Tail-CRC.pdf)
+![arXiv pending](https://img.shields.io/badge/arXiv-pending-68747b?style=flat-square)
+[![Hugging Face dataset](https://img.shields.io/badge/Hugging%20Face-Dataset-99661a?style=flat-square)](https://huggingface.co/datasets/Cqyiii/tail-crc-observations)
+[![Code license](https://img.shields.io/badge/Code-Apache%202.0-216b64?style=flat-square)](LICENSE)
 
-Tail-CRC trains a solver to finish a mathematical answer under a hard token budget, then uses token surprisal from that same rollout to decide whether to submit it. A held-out family set calibrates the decision for a chosen marginal wrong-submission risk.
+Tail-CRC lets a math solver spend its token budget on one answer, then uses that answer’s token probabilities to decide whether to submit it. You choose a target rate for wrong submissions and fit the cutoff on held-out problem families.
 
-[Reproduce the paper](#reproduce-the-paper) · [Try the decision rule](#quickstart) · [Results](#results) · [Solver weights](ADAPTERS.md) · [Citation](#citation)
+**[See the results](#results)** · **[Reproduce the paper](#reproduce-the-paper)** · **[Try Tail-CRC](#quickstart)** · [Solver weights](#solver-weights) · [Cite](#citation)
 
-![The solver is trained with binary rewards, frozen, and scored on the sampled answer span. Calibration families determine the submission cutoff.](assets/fig_method_overview.png)
+## How Tail-CRC works
 
-[Method overview · PDF](assets/fig_method_overview.pdf) · [SVG](assets/fig_method_overview.svg)
+1. **Solve.** Train a solver with binary rewards under a fixed token cap. Freeze it before calibration.
+2. **Score.** For an answer of length *L*, average the largest ⌈*L*/10⌉ negative log probabilities among its sampled answer tokens. A few surprising tokens can raise the score even when they occur early in the answer.
+3. **Calibrate and submit.** Use one labeled rollout per calibration family to fit a cutoff. On a new family, submit a valid answer only when its score is strictly below the cutoff. Ties abstain.
+
+![Method diagram. Binary-reward training produces a frozen solver. The two highlighted tokens in a 20-token answer illustrate the tail score used for calibration.](assets/fig_method_overview.png)
+
+[Method diagram (PDF)](assets/fig_method_overview.pdf) · [SVG](assets/fig_method_overview.svg) · [Reference implementation](tail_crc/__init__.py)
+
+## Results
+
+On **8B Omni-MATH at 8K**, Tail-CRC reduced wrong submissions from **41.8% to 6.5%**. Correct submissions also fell, from **38.8% to 18.0%**. Both rates use *all* test families as the denominator, including those where the solver abstained.
+
+![Omni-MATH 8B. At 4K, correct submissions fall from 29.3% to 16.7% and wrong submissions from 30.3% to 5.8%. The chart also shows the 8K comparison described above.](assets/omni-calibration.svg)
+
+[Omni-MATH comparison (PDF)](assets/omni-calibration.pdf) · [SVG](assets/omni-calibration.svg)
+
+<details>
+<summary><strong>All eight operating points · DAPO and Omni-MATH</strong></summary>
+
+Each cell gives **correct / wrong** submissions (%). Cutoffs are fitted separately by solver seed on same-domain calibration families at α = 6.5%. Results average the two seeds within each test family.
+
+**DAPO**
+
+| Model · cap | Binary RL | Tail-CRC |
+|:---|---:|---:|
+| 4B · 4K | 47.9 / 5.0 | 47.9 / 5.0 |
+| 4B · 8K | 57.6 / 6.3 | 57.6 / 6.3 |
+| 8B · 4K | 41.4 / 18.9 | 33.9 / 7.1 |
+| 8B · 8K | 57.5 / 26.4 | 39.1 / 5.9 |
+
+**Omni-MATH**
+
+| Model · cap | Binary RL | Tail-CRC |
+|:---|---:|---:|
+| 4B · 4K | 25.3 / 9.8 | 17.8 / 3.7 |
+| 4B · 8K | 30.5 / 12.8 | 24.3 / 5.8 |
+| 8B · 4K | 29.3 / 30.3 | 16.7 / 5.8 |
+| 8B · 8K | 38.8 / 41.8 | 18.0 / 6.5 |
+
+</details>
+
+<details>
+<summary><strong>Compare the 8B baselines at 4K · correct, wrong and unsubmitted</strong></summary>
+
+![Under a 4K cap, stacked bars compare correct, wrong and unsubmitted outcomes for 8B solvers on DAPO and Omni-MATH.](assets/fig1_three_state.png)
+
+[Hard-budget outcomes (PDF)](assets/fig1_three_state.pdf) · [SVG](assets/fig1_three_state.svg)
+
+</details>
+
+On **4B DAPO**, both fitted cutoffs accepted every valid answer. On **8B DAPO at 4K**, the observed wrong-submission rate was **7.1%**. Theorem 1 controls the *expected marginal* wrong-submission rate under exchangeability. An individual test panel can exceed the target.
+
+Withholding a completed answer still incurs its generation cost. The paper’s token savings measure the effect of **Binary RL versus the base model** under the same budget forcing.
+
+## Reproduce the paper
+
+Use **Python 3.11 on CPU**. The first run downloads eight checksum-pinned numerical inputs from Hugging Face. From a clean environment, run
+
+```sh
+git clone --branch v1.1.1 https://github.com/Cqyiiii/tail-crc.git
+cd tail-crc
+python3.11 -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements-paper.txt
+make paper
+```
+
+Open `output/paper/tables/` for the **12 manuscript tables** and their field-level checks. Open `output/paper/figures/` for the **eight figures** in PDF, SVG and PNG. The same command runs the three numerical theory checks. [Table guide](paper/TABLES.md) · [Figure inputs](paper/inputs/README.md)
+
+<details>
+<summary><strong>Partial runs, offline replay and evidence limits</strong></summary>
+
+- `make reproduce` rebuilds the six underlying evidence tables and five diagnostic plots, then checks 43,185 fields. `make theory` runs the reference-rule tests and the numerical checks for CRC, the score and the RL objective.
+- For an offline run after installing dependencies, place the eight files listed in the [data manifest](data-files.json) in `data/`. The loader verifies their sizes and SHA-256 checksums.
+- On macOS 14 or later, if an older Conda Python reports macOS 10.16 and pip cannot find a SciPy wheel, run `SYSTEM_VERSION_COMPAT=0 python -m pip install -r requirements-paper.txt`.
+- Nine manuscript tables use public measurements. One compares published method definitions, and two use recorded exploratory aggregates. The case illustration uses sampled token counts. Training-curve active-group fractions, four DEV parity means and eight CPU timing quantiles are available as recorded summaries.
+- The release supports paired family-level analysis from recorded grades, scores and costs. Regrading raw answers, generating new rollouts and repeating GPU timings require additional inputs. The 484-family reserve remains sealed.
+
+</details>
 
 ## Quickstart
 
-From a clone of this repository, this example runs on standard Python. The score averages the largest ⌈L/10⌉ token surprises anywhere in the L-token answer span. Calibration uses one labelled rollout per family, including families that yielded no valid answer.
+To try the decision rule on its own, run `python -m examples.quickstart_tail_crc` from the repository root. The example uses the Python standard library. Each calibration row is one family. **R** means correct, **W** means wrong and **U** means no valid submission.
 
 ```python
 from math import inf
@@ -41,66 +121,26 @@ assert crc_threshold(cal, "0.1") == -inf  # j = 0
 assert crc_threshold(cal, "0.8") == inf   # fewer than j wrong answers
 ```
 
-The strict cutoff rejects every tie. Under exchangeable families and a solver, decoder, verifier and score fixed before calibration, Theorem 1 controls the expected marginal probability of a wrong submission on a new family. A realized test-panel rate can exceed the target. [Reference implementation](tail_crc/__init__.py)
-
-## Results
-
-![Correct, wrong and unsubmitted outcomes under a 4K cap across two model sizes and domains.](assets/fig1_three_state.png)
-
-[Hard-budget outcomes · PDF](assets/fig1_three_state.pdf) · [SVG](assets/fig1_three_state.svg)
-
-Correct / wrong submissions below are percentages of all TEST families. Each model uses same-domain calibration at α = 6.5% and averages the two solver seeds within each family.
-
-| Domain | Model | Cap | Binary RL | Tail-CRC |
-|---|---|---:|---:|---:|
-| DAPO | 4B | 4K | 47.9 / 5.0 | 47.9 / 5.0 |
-| DAPO | 4B | 8K | 57.6 / 6.3 | 57.6 / 6.3 |
-| DAPO | 8B | 4K | 41.4 / 18.9 | 33.9 / 7.1 |
-| DAPO | 8B | 8K | 57.5 / 26.4 | 39.1 / 5.9 |
-| Omni-MATH | 4B | 4K | 25.3 / 9.8 | 17.8 / 3.7 |
-| Omni-MATH | 4B | 8K | 30.5 / 12.8 | 24.3 / 5.8 |
-| Omni-MATH | 8B | 4K | 29.3 / 30.3 | 16.7 / 5.8 |
-| Omni-MATH | 8B | 8K | 38.8 / 41.8 | 18.0 / 6.5 |
-
-On 4B DAPO both fitted policies accept every valid answer. On 8B DAPO at 4K, wrong submissions reach 7.1% on TEST. On Omni-MATH, target-domain calibration lowers wrong submissions at a cost in correct submissions. Measured token savings compare **Binary RL with the base model under the same budget forcing**. Withholding an already generated answer retains its generation cost. [Omni-MATH comparison · SVG](assets/omni-calibration.svg) · [PDF](assets/omni-calibration.pdf)
-
-## Reproduce the paper
-
-Use Python 3.11. The paper build runs on CPU. The first run downloads eight checksum-pinned numerical inputs from Hugging Face.
-
-```sh
-git clone --branch v1.1.1 https://github.com/Cqyiiii/tail-crc.git
-cd tail-crc
-python3.11 -m venv .venv
-. .venv/bin/activate
-python -m pip install -r requirements-paper.txt
-make paper
-```
-
-On macOS, older Conda-built Python interpreters can report the system version as 10.16 to pip. If a compatible SciPy wheel is missing on macOS 14 or later, run `SYSTEM_VERSION_COMPAT=0 python -m pip install -r requirements-paper.txt`.
-
-- `output/paper/tables/` contains 12 paper tables and a field-level verification report. Nine tables derive from public measurements, one compares published method definitions, and two reconstruct exploratory A3 results from recorded aggregates. [Table guide](paper/TABLES.md)
-- `output/paper/figures/` contains eight figures in PDF, SVG and PNG. The case illustration displays sampled token counts in place of verbatim outputs. Training-curve active-group fractions are supplied as recorded step aggregates. [Supplementary inputs](paper/inputs/README.md)
-- `make theory` runs the reference-rule tests and the CRC, score and RL numerical checks. These check enumerations, boundary cases and numerical examples from the manuscript.
-- `make reproduce` rebuilds the underlying six evidence tables and five diagnostic plots, and checks 43,185 fields. To replay offline, prepopulate `data/` with the eight files in [the manifest](data-files.json). The loader verifies their sizes and SHA-256 values.
-
-This release starts from recorded grades, scores and costs. The anonymized measurements support paired family-level analyses. Independent grading from raw answers, fresh model generation and new GPU timing require additional inputs. Four DEV parity means and eight CPU timing quantiles survive as recorded summaries. The 484-family reserve remains sealed.
-
-## Repository guide
-
-| Directory | Contents |
-|---|---|
-| [tail_crc](tail_crc/) and [examples](examples/) | Standard-library score, CRC cutoff and runnable example |
-| [replay](replay/) and [validation](validation/) | Paired estimates, calibration, score and systems analyses, frozen references |
-| [paper](paper/) and [theory](theory/) | Publication tables, figures, numerical checks and scoped inputs |
-| [tools](tools/) | README chart, model conversion and author-side observation export |
-| [release.json](release.json) and [data dictionary](DATA_CARD.md) | Pinned Hub revisions, data units and field definitions |
+The example fits a cutoff of **0.7**. It submits the answer scoring **0.2**, withholds the answer tied at **0.7**, and withholds the invalid answer. Theorem 1 assumes exchangeable families and a fixed solver, decoder, verifier and score.
 
 ## Solver weights
 
-Four public LoRA adapters cover Binary RL at both sizes and both seeds. Each repository provides the original factors, PEFT layout, checksums and base revision. A submission threshold is fitted separately for each calibration setting. [Model links, HF/vLLM loading and 4B reconstruction](ADAPTERS.md)
+Four public Binary RL LoRA adapters cover **Qwen3.5-4B** and **Qwen3-8B**, each at seeds **41** and **73**. Each release includes the original factors, PEFT adapter, base revision and checksums. Fit a submission cutoff separately for your calibration setting. [Model links, PEFT and vLLM examples, and 4B weight reconstruction](ADAPTERS.md)
+
+## Repository guide
+
+| To inspect | Open |
+|:---|:---|
+| Score and calibration rule | [Implementation](tail_crc/) · [Runnable example](examples/) |
+| Family-level estimates and checks | [Replay](replay/) · [Frozen references](validation/) |
+| Manuscript tables, figures and theory | [Paper build](paper/) · [Numerical checks](theory/) |
+| Observations and pinned revisions | [Data dictionary](DATA_CARD.md) · [Release manifest](release.json) |
+| Chart generation and adapter conversion | [Tools](tools/) |
 
 ## Paper names and archived identifiers
+
+<details>
+<summary><strong>Look up an identifier from Appendix B.1 or the released logs</strong></summary>
 
 | Paper name | Archived record |
 |---|---|
@@ -118,6 +158,8 @@ Four public LoRA adapters cover Binary RL at both sizes and both seeds. Each rep
 | Source / target calibration | Track A (DAPO cuts) / Track B (natural Omni CAL300 cuts) |
 | DAPO source / independent Omni study | `pc_crc_confirm_2a_v1` / `pc_crc_ood_confirm_v1` |
 
+</details>
+
 ## Citation
 
 ```bibtex
@@ -129,4 +171,4 @@ Four public LoRA adapters cover Binary RL at both sizes and both seeds. Each rep
 }
 ```
 
-The code is [Apache-2.0](LICENSE). The numerical observations and validation references use [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Cite the paper and record the release or full revisions used. [Software citation](CITATION.cff) · [Data and licenses](https://huggingface.co/datasets/Cqyiii/tail-crc-observations)
+[Software citation](CITATION.cff) · [Code license (Apache 2.0)](LICENSE) · [Observations and validation references (CC BY 4.0)](https://huggingface.co/datasets/Cqyiii/tail-crc-observations)
