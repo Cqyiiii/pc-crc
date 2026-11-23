@@ -13,7 +13,7 @@ plt.rcParams.update({"axes.spines.top":False,"axes.spines.right":False,"figure.d
                      "font.size":9,"axes.labelsize":9,"svg.fonttype":"none","svg.hashsalt":"pc-crc-arxiv-v1"})
 
 def save(fig,out,name):
-    fig.savefig(out/(name+".png"),facecolor="white",metadata={"Software":"PC-CRC replay"})
+    fig.savefig(out/(name+".png"),facecolor="white",metadata={"Software":"Tail-CRC replay"})
     fig.savefig(out/(name+".svg"),facecolor="white",metadata={"Date":None})
     plt.close(fig)
 
@@ -60,7 +60,7 @@ def uncertainty(out):
     strata=read_csv(out/"figure3_strata.csv")
     scores=read_csv(out/"figure3_scores.csv")
     fig,axs=plt.subplots(2,2,figsize=(10.5,7.1),layout="constrained")
-    fig.suptitle("Post-closure uncertainty on the fixed test panels",fontweight="bold")
+    fig.suptitle("Answer-span uncertainty on the fixed test panels",fontweight="bold")
     for ax,domain in zip(axs[0],("DAPO","Omni")):
         v=sorted((r for r in vals if r["domain"]==domain),key=lambda r:(r["size"],r["arm"],r["budget"]))
         for i,r in enumerate(v):

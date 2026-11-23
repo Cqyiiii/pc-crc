@@ -1,0 +1,7 @@
+approach,decision_and_risk_target,deployment_information,paper_reference,citation_key,source_url
+Risk-controlling prediction sets,Set size chosen to meet a specified population-loss target,Predictor scores for candidate outputs,4,bates2021distribution,https://arxiv.org/abs/2101.02703
+Conformal language modeling,Candidate set containing at least one acceptable answer,Additional sampled candidates as needed,26,quach2024clm,https://proceedings.iclr.cc/paper_files/paper/2024/hash/31421b112e5f7faf4fc577b74e45dab2-Abstract-Conference.html
+Conformal factuality,Claim-filtered response with marginal factuality control,Parsed claims and claim-level confidence scores,24,mohri2024factuality,https://proceedings.mlr.press/v235/mohri24a.html
+Enhanced conformal validity,Filtered claims with level-adaptive validity over specified features,Claim scores and prompt/response features,5,cherian2024validity,https://proceedings.neurips.cc/paper_files/paper/2024/hash/d02ff1aeaa5c268dc34790dd1ad21526-Abstract-Conference.html
+Conformal CoT aggregation,Aggregated answer with controlled marginal wrong-submission risk,Multiple scored reasoning paths,12,gu2026pause,https://arxiv.org/abs/2605.14098v2
+Tail-CRC (Ours),One hard-budget answer with controlled marginal wrong-submission risk,One trajectory and its returned token log probabilities,,,

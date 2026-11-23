@@ -1,9 +1,22 @@
 cff-version: 1.2.0
-message: "Please cite the Tail-CRC numerical reproduction release and the revisions you used."
-title: "Tail-CRC: reproduction code for Solve-then-Calibrate"
+message: "Please cite the paper and identify the software and data revisions used."
+title: "Tail-CRC numerical reproduction software"
 authors:
   - family-names: Chen
     given-names: Qianyi
-version: "1.0.2"
+  - family-names: Li
+    given-names: Bo
+version: "1.1.0"
+date-released: "2026-11-24"
 license: Apache-2.0
 repository-code: "https://github.com/Cqyiiii/pc-crc"
+preferred-citation:
+  type: unpublished
+  title: "Decoupling Solving from Abstention: Single-Rollout Conformal Risk Control for Hard-Budget LLM Reasoning"
+  authors:
+    - family-names: Chen
+      given-names: Qianyi
+    - family-names: Li
+      given-names: Bo
+  year: 2026
+  notes: "Preprint"

@@ -1,4 +1,5 @@
-Tail-CRC arXiv reproduction software
-Code by the Tail-CRC contributors, licensed under Apache-2.0.
-The validation reference tables are derived study results, licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
-Data are attributed to the Tail-CRC contributors. See DATA_CARD.md for upstream provenance.
+Tail-CRC reproduction software and publication figures.
+Software by the Tail-CRC contributors, licensed under Apache-2.0.
+Derived measurement files, validation references and paper input tables are licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+The manuscript is attributed to its authors, Qianyi Chen and Bo Li.
+See DATA_CARD.md for upstream rights and source revisions.

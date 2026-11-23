@@ -1,30 +1,35 @@
 {
-  "version": "1.0.2",
+  "version": "1.1.0",
   "method": "Tail-CRC",
   "framework": "Solve-then-Calibrate",
   "dataset": {
-    "id": "Cqyiii/pc-crc-observations",
-    "revision": "5c123785c2de38db193656779f4bfecad2d92582"
+    "id": "Cqyiii/tail-crc-observations",
+    "revision": "5110e21041522210bec69089acdd29af2ff2d474"
   },
   "adapters": [
     {
       "id": "Cqyiii/PC-CRC-G0-4B-seed41",
-      "revision": "e8792cd4ecd58f53e6a4c97f8a4b8381ee60238c"
+      "revision": "e7abdd0017ab994218555a4c3f63698095e9ce1a"
     },
     {
       "id": "Cqyiii/PC-CRC-G0-4B-seed73",
-      "revision": "7c3303b38aa79c208a0656386b5c6edee892a7b2"
+      "revision": "3f2311138574e6ef0b9dbff4163a23cf70a4f637"
     },
     {
       "id": "Cqyiii/PC-CRC-G0-8B-seed41",
-      "revision": "bc0e6714684e06b03102b0701dfee2710ef5b8f5"
+      "revision": "7a5cbf53d43f40df08883f2cb7596dd13a1de109"
     },
     {
       "id": "Cqyiii/PC-CRC-G0-8B-seed73",
-      "revision": "f8aa0372fa3fa5b9a1fe5fec5dfb9c0149c2201d"
+      "revision": "420f8c2cc0e5916f7e50280afa67cc63dd61be66"
     }
   ],
   "evaluation_rows": 42000,
   "released_families": 1800,
-  "training_steps": 350
+  "training_steps": 350,
+  "paper_title": "Decoupling Solving from Abstention: Single-Rollout Conformal Risk Control for Hard-Budget LLM Reasoning",
+  "authors": [
+    "Qianyi Chen",
+    "Bo Li"
+  ]
 }

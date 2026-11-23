@@ -20,6 +20,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from statistics import fmean
 
+from tail_crc import crc_threshold
+
 
 FILENAME = "table6_a100_portability_latency_and_pilot.csv"
 COLUMNS = ("category", "engine", "model", "arm", "decode_or_test", "n",
@@ -122,9 +124,7 @@ def filter_rows(data, measurements):
             cal = groups.pop((size, budget, "CAL"))
             test = groups.pop((size, budget, "TEST"))
             assert len(cal) == len(test) == 500
-            allowed = math.floor((len(cal) + 1) * alpha - 1 + 1e-10)
-            wrong = sorted(score for grade, score in cal if grade == "W")
-            cutoff = wrong[allowed] if allowed < len(wrong) else math.inf
+            cutoff = crc_threshold(cal, alpha)
             accepted = sum(score < cutoff for _, score in test)
             measured = measurements["cpu_quantiles"][f"{size}/{budget}"]
             rows.append(("CPU_Filter", "CPU", size, G0, f"DAPO_{budget}", len(test),

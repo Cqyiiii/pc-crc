@@ -1,0 +1,5 @@
+model,domain,maj2_R,maj2_W,agreement_R,agreement_W,single_8K_R,single_8K_W,two_4K_tokens,one_8K_tokens
+4B,DAPO,7,1,5,0,11,0,115909,99950
+4B,Omni,1,0,1,0,4,2,126562,115965
+8B,DAPO,3,2,0,0,7,3,122805,97027
+8B,Omni,2,9,1,2,5,8,110891,88849

@@ -5,6 +5,9 @@ import os
 import re
 import shutil
 import tempfile
+import time
+from http.client import IncompleteRead
+from urllib.error import HTTPError, URLError
 from pathlib import Path
 from urllib.request import Request, urlopen
 
@@ -15,6 +18,21 @@ def valid(path, spec):
         return False
     with path.open("rb") as stream:
         return hashlib.file_digest(stream, "sha256").hexdigest() == spec["sha256"]
+
+def download(request, dest):
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=60) as response, dest.open("wb") as output:
+                shutil.copyfileobj(response, output)
+            return
+        except HTTPError as exc:
+            if attempt == 2 or exc.code not in (408, 429, 500, 502, 503, 504):
+                raise
+        except (TimeoutError, ConnectionError, URLError, IncompleteRead):
+            if attempt == 2:
+                raise
+        time.sleep(2 ** attempt)
+
 
 def main():
     manifest = json.loads((ROOT / "data-files.json").read_text())
@@ -33,9 +51,8 @@ def main():
             raise ValueError(f"Unexpected manifest entry: {name}")
         with tempfile.TemporaryDirectory(dir=directory) as tmp:
             dest = Path(tmp) / name
-            request = Request(base + name, headers={"User-Agent": "pc-crc-replay/1.0"})
-            with urlopen(request, timeout=60) as response, dest.open("wb") as output:
-                shutil.copyfileobj(response, output)
+            request = Request(base + name, headers={"User-Agent": "tail-crc-replay/1.1"})
+            download(request, dest)
             if not valid(dest, manifest[name]):
                 raise ValueError(f"Downloaded file failed integrity checks: {name}")
             os.replace(dest, directory / name)

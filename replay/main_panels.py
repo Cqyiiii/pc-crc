@@ -7,9 +7,10 @@ from collections import defaultdict
 import csv
 from functools import lru_cache
 import json
-import math
 
 import numpy as np
+
+from tail_crc import crc_threshold, _threshold_at_rank
 
 
 BUDGETS = (4096, 8192)
@@ -74,10 +75,7 @@ class Panel:
         return np.sort(self.score(score)[self.labels == "W"])
 
     def cut(self, score, alpha):
-        allowed = math.floor((len(self.labels) + 1) * alpha - 1 + 1e-10)
-        assert allowed >= 0
-        wrong = self.wrong_scores(score)
-        return wrong[allowed] if allowed < len(wrong) else np.inf
+        return crc_threshold(zip(self.labels, self.score(score)), alpha)
 
     @lru_cache(maxsize=None)
     def raw(self):
@@ -176,7 +174,7 @@ def supplement(panels, domain):
                 for k in range(1 + max(len(wrong) for wrong, _ in solos)):
                     accepted = wrong_count = 0
                     for wrong, test in solos:
-                        cut = wrong[k] if k < len(wrong) else np.inf
+                        cut = _threshold_at_rank(wrong, k + 1)
                         on = test.score("tail10_nll") < cut
                         accepted += int(on.sum())
                         wrong_count += int((on & (test.labels == "W")).sum())

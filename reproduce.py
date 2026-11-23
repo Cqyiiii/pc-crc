@@ -19,7 +19,7 @@ def main():
     if out in (ROOT,data,ROOT/"validation") or out.is_relative_to(data) or out.is_relative_to(ROOT/"validation"):
         parser.error("Choose a separate output directory.")
     out.mkdir(exist_ok=True,parents=True)
-    with tempfile.TemporaryDirectory(prefix="pc-crc-mpl-") as cache:
+    with tempfile.TemporaryDirectory(prefix="tail-crc-mpl-") as cache:
         os.environ["MPLCONFIGDIR"]=cache
         for key in ("OPENBLAS_NUM_THREADS","VECLIB_MAXIMUM_THREADS","OMP_NUM_THREADS"):
             os.environ[key]="1"

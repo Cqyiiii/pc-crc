@@ -1,11 +1,12 @@
 """Replay Table 4, the pooled entropy policies in Table 1, and the Native comparison."""
 import csv
 import json
-import math
 from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
+
+from tail_crc import crc_threshold
 
 
 SEED = 20261122
@@ -39,9 +40,7 @@ def weighted_auc(scores, labels, weights):
 
 def crc_pass(cal, test_scores, name, alpha):
     """Split CRC over all CAL families, with tied values at the cutoff rejected together."""
-    wrong = np.sort(risks(cal, name)[[r["vs"] == "W" for r in cal]])
-    m = math.floor((len(cal) + 1) * alpha - 1 + 1e-10)
-    threshold = -np.inf if m < 0 else wrong[m] if m < len(wrong) else np.inf
+    threshold = crc_threshold(zip((r["vs"] for r in cal), risks(cal, name)), alpha)
     return test_scores < threshold
 
 

@@ -1,0 +1,6 @@
+model,generation_configuration,seconds_per_family,comparison_with_native_8K
+4B,"Native, 8K",20.88,
+4B,"Binary RL, 4K",10.20,2.05× speedup
+8B,"Native, 8K",13.60,
+8B,"Binary RL, 4K",6.11,2.23× speedup
+8B,"Binary RL, 8K",11.90,12.56% less time

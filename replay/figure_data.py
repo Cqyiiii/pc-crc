@@ -7,6 +7,8 @@ from collections import defaultdict
 import numpy as np
 from scipy.stats import beta, binom, rankdata
 
+from tail_crc import _calibration_rank
+
 
 def save_csv(path, rows):
     rows=list(rows)
@@ -58,6 +60,14 @@ def certificates(groups):
     return results
 
 
+def resplit_thresholds(wrong_scores, alpha):
+    """Fit each resplit at once. Each CAL row uses +inf for every R or U."""
+    j = _calibration_rank(wrong_scores.shape[1], alpha)
+    if j == 0:
+        return np.full(wrong_scores.shape[0], -np.inf)
+    return np.partition(wrong_scores, j - 1, axis=1)[:, j - 1]
+
+
 def sensitivity(groups):
     results=[]
     for domain,n,ns in (("DAPO",1000,(50,100,200,300,500)),("Omni",600,(50,100,200,300))):
@@ -73,8 +83,7 @@ def sensitivity(groups):
                     risks.append(np.array([r["tail10_nll"] if r["vs"]=="W" else np.inf for r in pair])[orders])
                 for nc in ns:
                     for alpha in (.065,.1):
-                        idx=math.floor((nc+1)*alpha-1)
-                        cuts=[np.partition(v[:,:nc],idx,axis=1)[:,idx] for v in risks]
+                        cuts=[resplit_thresholds(v[:,:nc],alpha) for v in risks]
                         seed_risks=[(v[:,nc:]<cut[:,None]).mean(1) for v,cut in zip(risks,cuts)]
                         wrong=np.mean(seed_risks,axis=0)
                         results.append(dict(domain=domain,size=size,budget=budget,ncal=nc,alpha=alpha,
