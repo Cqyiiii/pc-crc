@@ -4,6 +4,6 @@ title: "Tail-CRC: reproduction code for Solve-then-Calibrate"
 authors:
   - family-names: Chen
     given-names: Qianyi
-version: "1.0.1"
+version: "1.0.2"
 license: Apache-2.0
 repository-code: "https://github.com/Cqyiiii/pc-crc"
