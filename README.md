@@ -1,10 +1,10 @@
-# Solve-Then-Certify · numerical reproduction
+# Decoupling Solving from Abstention · PC-CRC reproduction
 
-*Solve-Then-Certify: Decoupling Hard-Budget RLVR from Post-Closure Conformal Risk Control in Reasoning LLMs*
+*Decoupling Solving from Abstention: Single-Rollout Conformal Risk Control for Hard-Budget Reasoning* by Qianyi Chen.
 
-**Solve-Then-Certify** studies how a mathematical reasoning model can use a fixed token budget to solve a problem and then decide whether to submit its answer. The first stage, **ExtBF-GRPO**, uses reinforcement learning with verifiable rewards and external budget forcing to train the solver. The second stage, **Post-Closure Conformal Risk Control (PC-CRC)**, calibrates a threshold on held-out problem families and applies it to the completed answer's uncertainty score. The risk of interest is the marginal probability of submitting a wrong answer. The experiments use Qwen3.5-4B and Qwen3-8B on DAPO and Omni-MATH.
+The paper studies how a mathematical reasoning model can use a fixed token budget to solve a problem and then decide whether to submit its answer. The first stage, **ExtBF-GRPO**, uses reinforcement learning with verifiable rewards and external budget forcing to train the solver. The second stage, **Post-Closure Conformal Risk Control (PC-CRC)**, calibrates a threshold on held-out problem families and applies it to the completed answer's uncertainty score. The risk of interest is the marginal probability of submitting a wrong answer. The experiments use Qwen3.5-4B and Qwen3-8B on DAPO and Omni-MATH.
 
-Rebuild the six manuscript tables, four main figures and the training appendix on CPU. The inputs contain released family-level observations, training-step counts and systems measurements. Calibration is fit on CAL. The package includes the 8B failures at the original DAPO thresholds, unissued LTT certificates and the exploratory small-panel results.
+Rebuild the six numerical evidence tables and generate four core plots and the training appendix plot on CPU. The evidence tables aggregate multiple experiments and have their own numbering, as described in Appendix B.5 of the manuscript. The inputs contain released family-level observations, training-step counts and systems measurements. Calibration is fit on CAL. The package includes the 8B failures at the original DAPO thresholds, unissued LTT certificates and the exploratory small-panel results.
 
 ## Run
 
@@ -48,4 +48,6 @@ Optional model conversion uses `python tools/convert_adapter.py {4B,8B} ORIGINAL
 
 ## Pinned downloads
 
-- [Numerical dataset · 4f082fbba125](https://huggingface.co/datasets/Cqyiii/pc-crc-observations/tree/4f082fbba12518d17d54106df68eddcbb5fe7090)
+- [Numerical dataset · 9574462fe94d](https://huggingface.co/datasets/Cqyiii/pc-crc-observations/tree/9574462fe94d610698aa2dfd463655f7f87f2798)
+- [PC-CRC-G0-4B-seed41 · 6fc398533044](https://huggingface.co/Cqyiii/PC-CRC-G0-4B-seed41/tree/6fc398533044a2a00c86941c133299ae28de9a08)
+- [PC-CRC-G0-4B-seed73 · dbb387c47cfb](https://huggingface.co/Cqyiii/PC-CRC-G0-4B-seed73/tree/dbb387c47cfb20d54e45e1e91402509452bb3812)

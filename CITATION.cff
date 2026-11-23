@@ -1,8 +1,9 @@
 cff-version: 1.2.0
 message: "Please cite the PC-CRC numerical reproduction release and the revisions you used."
-title: "Solve-Then-Certify: code for reproducing the arXiv results"
+title: "Decoupling Solving from Abstention: PC-CRC reproduction code"
 authors:
-  - name: PC-CRC contributors
+  - family-names: Chen
+    given-names: Qianyi
 version: "1.0.0"
 license: Apache-2.0
 repository-code: "https://github.com/Cqyiiii/pc-crc"
