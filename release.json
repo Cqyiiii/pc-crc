@@ -1,27 +1,27 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "method": "Tail-CRC",
   "framework": "Solve-then-Calibrate",
   "dataset": {
     "id": "Cqyiii/tail-crc-observations",
-    "revision": "5110e21041522210bec69089acdd29af2ff2d474"
+    "revision": "781769e49030dda3afe87fa46a25decf9183e3b6"
   },
   "adapters": [
     {
       "id": "Cqyiii/PC-CRC-G0-4B-seed41",
-      "revision": "e7abdd0017ab994218555a4c3f63698095e9ce1a"
+      "revision": "c1fcf0607fb4ff9d5a1ff737e9346d71ce858a3b"
     },
     {
       "id": "Cqyiii/PC-CRC-G0-4B-seed73",
-      "revision": "3f2311138574e6ef0b9dbff4163a23cf70a4f637"
+      "revision": "8f1fe7408dba3dd860c87f63e425277f430ec05e"
     },
     {
       "id": "Cqyiii/PC-CRC-G0-8B-seed41",
-      "revision": "7a5cbf53d43f40df08883f2cb7596dd13a1de109"
+      "revision": "c98d6033f96a2d3317600811de87f6b3c51d6d10"
     },
     {
       "id": "Cqyiii/PC-CRC-G0-8B-seed73",
-      "revision": "420f8c2cc0e5916f7e50280afa67cc63dd61be66"
+      "revision": "4ba050c4c31f98683ae7d9b5fe0c096027689cc4"
     }
   ],
   "evaluation_rows": 42000,

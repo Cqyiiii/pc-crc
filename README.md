@@ -69,13 +69,15 @@ On 4B DAPO both fitted policies accept every valid answer. On 8B DAPO at 4K, wro
 Use Python 3.11. The paper build runs on CPU. The first run downloads eight checksum-pinned numerical inputs from Hugging Face.
 
 ```sh
-git clone --branch v1.1.0 https://github.com/Cqyiiii/pc-crc.git
-cd pc-crc
+git clone --branch v1.1.1 https://github.com/Cqyiiii/tail-crc.git
+cd tail-crc
 python3.11 -m venv .venv
 . .venv/bin/activate
 python -m pip install -r requirements-paper.txt
 make paper
 ```
+
+On macOS, older Conda-built Python interpreters can report the system version as 10.16 to pip. If a compatible SciPy wheel is missing on macOS 14 or later, run `SYSTEM_VERSION_COMPAT=0 python -m pip install -r requirements-paper.txt`.
 
 - `output/paper/tables/` contains 12 paper tables and a field-level verification report. Nine tables derive from public measurements, one compares published method definitions, and two reconstruct exploratory A3 results from recorded aggregates. [Table guide](paper/TABLES.md)
 - `output/paper/figures/` contains eight figures in PDF, SVG and PNG. The case illustration displays sampled token counts in place of verbatim outputs. Training-curve active-group fractions are supplied as recorded step aggregates. [Supplementary inputs](paper/inputs/README.md)
