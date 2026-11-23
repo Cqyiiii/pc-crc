@@ -1,0 +1,34 @@
+{
+  "observations.jsonl.gz": {
+    "bytes": 1913786,
+    "sha256": "28abeb19ad17e6996c2a9a8c6028efa13087bb7b3bd313037cda1280d31ff9b8"
+  },
+  "system_batch_times.csv": {
+    "bytes": 2008,
+    "sha256": "829fceee8adc0db5582ad24e1ecb46fde054a651f3e6104e641e629bcdc1170c"
+  },
+  "system_filter_scores.csv": {
+    "bytes": 117138,
+    "sha256": "478c36677a4d93b23c90f9de693137043cfa091ad170006b627e49bc847a4ab7"
+  },
+  "system_generation_lengths.csv": {
+    "bytes": 22294,
+    "sha256": "84a611a94a7d81890bd4bb669e68c7acd902eed43134b52cf8577427fa104a42"
+  },
+  "system_measurements.json": {
+    "bytes": 1732,
+    "sha256": "560e6b828604cf33d5a8588cf205fb0f5a41b0126b02dd17d70766cbb778447e"
+  },
+  "system_parity_errors.csv": {
+    "bytes": 5066,
+    "sha256": "57ad5810f50b5a3fb2c8b14f4fb7a77a3080c98b6353966a3e18fedcda6ae2dc"
+  },
+  "system_vote_families.csv": {
+    "bytes": 2274,
+    "sha256": "d3ed6dcea433fccf8882615c906d7b2cc9a6d73fc3335a891a14016284fa0bdc"
+  },
+  "training_steps.jsonl.gz": {
+    "bytes": 3987,
+    "sha256": "40a14e9e928d59727715143170d69be73364bb3c23ae626af5e27b16b616f786"
+  }
+}

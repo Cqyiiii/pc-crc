@@ -1,0 +1,28 @@
+category,engine,model,arm,decode_or_test,n,metric_1,metric_2,metric_3,notes
+Portability,HF_PEFT,4B,G0_41,DEV_32tok,32,base_MAE=0.0238,peft_MAE=0.0033,merged_MAE=0.0030,498 exported LoRA tensors; 402 PEFT parameters loaded; fused QKV + untied lm_head
+Portability,HF_PEFT,8B,G0_41,DEV_32tok,32,base_MAE=0.0050,peft_MAE=0.0012,merged_MAE=0.0022,506 tensors
+Portability,vLLM_0.20,8B,G0_41,DEV_32tok_dynLoRA,32,base_MAE=0.0038,dynLoRA_MAE=0.0007,,4B used PEFT-merged weights in vLLM
+WallClock,vLLM_A100,4B,G0_41,ext4096_DAPO,50,tok_s=352.2848,batched_wall_s_per_problem=10.200269,,Same-adapter comparison. Offline filter feature extraction excluded.
+WallClock,vLLM_A100,4B,G0_41,ext8192_DAPO,50,tok_s=294.8981,batched_wall_s_per_problem=20.463952,,Same-adapter comparison. Offline filter feature extraction excluded.
+WallClock,vLLM_A100,4B,G0_41,native4096_DAPO,50,tok_s=404.7760,batched_wall_s_per_problem=10.114237,,Same-adapter comparison. Offline filter feature extraction excluded.
+WallClock,vLLM_A100,4B,G0_41,native8192_DAPO,50,tok_s=383.3942,batched_wall_s_per_problem=20.306096,,Same-adapter comparison. Offline filter feature extraction excluded.
+WallClock,vLLM_A100,8B,G0_41,ext4096_DAPO,50,tok_s=572.7418,batched_wall_s_per_problem=6.106522,,Same-adapter comparison. Offline filter feature extraction excluded.
+WallClock,vLLM_A100,8B,G0_41,ext8192_DAPO,50,tok_s=461.7330,batched_wall_s_per_problem=11.896311,,Same-adapter comparison. Offline filter feature extraction excluded.
+WallClock,vLLM_A100,8B,G0_41,native4096_DAPO,50,tok_s=631.3865,batched_wall_s_per_problem=6.420949,,Same-adapter comparison. Offline filter feature extraction excluded.
+WallClock,vLLM_A100,8B,G0_41,native8192_DAPO,50,tok_s=496.9216,batched_wall_s_per_problem=14.248445,,Same-adapter comparison. Offline filter feature extraction excluded.
+CPU_Filter,CPU,4B,G0_41,DAPO_4096,500,median_ns_prob=25.91,P95_ns_prob=26.69,accepted=265,Threshold comparison on cached scores only; P95 across timing blocks.
+CPU_Filter,CPU,4B,G0_41,DAPO_8192,500,median_ns_prob=25.92,P95_ns_prob=25.97,accepted=327,Threshold comparison on cached scores only; P95 across timing blocks.
+CPU_Filter,CPU,8B,G0_41,DAPO_4096,500,median_ns_prob=26.14,P95_ns_prob=26.20,accepted=192,Threshold comparison on cached scores only; P95 across timing blocks.
+CPU_Filter,CPU,8B,G0_41,DAPO_8192,500,median_ns_prob=25.85,P95_ns_prob=25.97,accepted=295,Threshold comparison on cached scores only; P95 across timing blocks.
+Pilot_Maj2,vLLM_A100,4B,G0_41,DAPO_2x4K_vs_1x8K,16,"Maj2_RW=(7,1)","Agree_RW=(5,0)","Single8K_RW=(11,0)",Tokens: 115909 vs 99950 (-13.8%)
+Pilot_Maj2,vLLM_A100,4B,G0_41,Omni_2x4K_vs_1x8K,16,"Maj2_RW=(1,0)","Agree_RW=(1,0)","Single8K_RW=(4,2)",Tokens: 126562 vs 115965 (-8.4%)
+Pilot_Maj2,vLLM_A100,8B,G0_41,DAPO_2x4K_vs_1x8K,16,"Maj2_RW=(3,2)","Agree_RW=(0,0)","Single8K_RW=(7,3)",Tokens: 122805 vs 97027 (-21.0%)
+Pilot_Maj2,vLLM_A100,8B,G0_41,Omni_2x4K_vs_1x8K,16,"Maj2_RW=(2,9)","Agree_RW=(1,2)","Single8K_RW=(5,8)",Tokens: 110891 vs 88849 (-19.9%)
+WallClock,vLLM_A100,4B,base,native4096_DAPO,50,tok_s=391.2971,batched_wall_s_per_problem=10.462639,,Base weights; 50 TEST families.
+WallClock,vLLM_A100,4B,base,native8192_DAPO,50,tok_s=382.2977,batched_wall_s_per_problem=20.875093,,Base weights; 50 TEST families.
+WallClock,vLLM_A100,4B,base,ext4096_DAPO,50,tok_s=375.1133,batched_wall_s_per_problem=10.241652,,Base weights; 50 TEST families.
+WallClock,vLLM_A100,4B,base,ext8192_DAPO,50,tok_s=346.2257,batched_wall_s_per_problem=20.731449,,Base weights; 50 TEST families.
+WallClock,vLLM_A100,8B,base,native4096_DAPO,50,tok_s=633.5279,batched_wall_s_per_problem=6.317133,,Base weights; 50 TEST families.
+WallClock,vLLM_A100,8B,base,native8192_DAPO,50,tok_s=517.2648,batched_wall_s_per_problem=13.604908,,Base weights; 50 TEST families.
+WallClock,vLLM_A100,8B,base,ext4096_DAPO,50,tok_s=587.8733,batched_wall_s_per_problem=6.096415,,Base weights; 50 TEST families.
+WallClock,vLLM_A100,8B,base,ext8192_DAPO,50,tok_s=483.6645,batched_wall_s_per_problem=12.617673,,Base weights; 50 TEST families.
