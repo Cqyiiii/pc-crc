@@ -19,4 +19,6 @@ preferred-citation:
     - family-names: Li
       given-names: Bo
   year: 2026
-  notes: "Preprint"
+  notes: "arXiv:2611.31065 [cs.AI]"
+  doi: "10.48550/arXiv.2611.31065"
+  url: "https://arxiv.org/abs/2611.31065"

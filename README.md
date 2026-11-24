@@ -6,8 +6,8 @@
 
 Qianyi Chen and Bo Li
 
-[![Read the paper (PDF)](https://img.shields.io/badge/Paper-PDF-903f36?style=flat-square)](Tail-CRC.pdf)
-![arXiv pending](https://img.shields.io/badge/arXiv-pending-68747b?style=flat-square)
+[![Read the paper (PDF)](https://img.shields.io/badge/Paper-PDF-903f36?style=flat-square)](https://arxiv.org/pdf/2611.31065)
+[![arXiv:2611.31065](https://img.shields.io/badge/arXiv-2611.31065-b31b1b?style=flat-square)](https://arxiv.org/abs/2611.31065)
 [![Hugging Face dataset](https://img.shields.io/badge/Hugging%20Face-Dataset-99661a?style=flat-square)](https://huggingface.co/datasets/Cqyiii/tail-crc-observations)
 [![Code license](https://img.shields.io/badge/Code-Apache%202.0-216b64?style=flat-square)](LICENSE)
 
@@ -167,7 +167,11 @@ Four public Binary RL LoRA adapters cover **Qwen3.5-4B** and **Qwen3-8B**, each 
   title  = {Decoupling Solving from Abstention: Single-Rollout Conformal Risk Control for Hard-Budget {LLM} Reasoning},
   author = {Qianyi Chen and Bo Li},
   year   = {2026},
-  note   = {Preprint}
+  eprint = {2611.31065},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.AI},
+  doi    = {10.48550/arXiv.2611.31065},
+  url    = {https://arxiv.org/abs/2611.31065}
 }
 ```
 
