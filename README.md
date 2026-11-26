@@ -6,7 +6,8 @@
 
 Qianyi Chen and Bo Li
 
-[![Read the paper (PDF)](https://img.shields.io/badge/Paper-PDF-903f36?style=flat-square)](https://arxiv.org/pdf/2611.31065)
+[![Project Page](https://img.shields.io/badge/Project-Page-17665b?style=flat-square)](https://cqyiiii.github.io/tail-crc/)
+[![Read the paper (PDF)](https://img.shields.io/badge/Paper-PDF-903f36?style=flat-square)](https://cqyiiii.github.io/tail-crc/paper.pdf)
 [![arXiv:2611.31065](https://img.shields.io/badge/arXiv-2611.31065-b31b1b?style=flat-square)](https://arxiv.org/abs/2611.31065)
 [![Hugging Face dataset](https://img.shields.io/badge/Hugging%20Face-Dataset-99661a?style=flat-square)](https://huggingface.co/datasets/Cqyiii/tail-crc-observations)
 [![Code license](https://img.shields.io/badge/Code-Apache%202.0-216b64?style=flat-square)](LICENSE)
